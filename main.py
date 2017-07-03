@@ -1,11 +1,9 @@
 from details import spy, Spy, ChatMessage, friends
 from steganography.steganography import Steganography
 from datetime import datetime
+#started spy_chat project from here
 
 STATUS_MESSAGES = ['My name is Simran, Simran Bindal', 'dedictaed towards my work.', 'life is complicated']
-
-
-
 print "Hello! Let's started our spy_chat"
 
 question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (Y/N)? "
@@ -13,6 +11,8 @@ question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (
 existing = raw_input(question)
 
 
+
+#add_status fuction starts
 def add_status():
     updated_status_message = None
 
@@ -52,6 +52,10 @@ def add_status():
         print ('You did not update your status message')
 
     return updated_status_message
+
+#add_status function ends
+
+
 
 #add_freind fuction starts
 
@@ -97,11 +101,13 @@ def select_friend():
 
 #select_freind fuction ends
 
+
+#send_message function starts
 def send_message():
   friend_choice = select_friend()
 
-  original_image = raw_input("What is the name of the image?")
-  output_path = 'output.jpg'
+  original_image = raw_input("what is the name of your image")
+  output_path = 'resources1.jpg'
   text = raw_input("What do you want to say?")
   Steganography.encode(original_image, output_path, text)
   new_chat = ChatMessage(text, True)
@@ -109,8 +115,13 @@ def send_message():
   friends[friend_choice].chats.append(new_chat)
 
   print "Your secret message image is ready!"
-
-
+  
+  #send_message function ends
+  
+  
+  
+  
+#read message function starts
 def read_message():
       sender = select_friend()
 
@@ -121,6 +132,10 @@ def read_message():
 
       friends[sender].chats.append(new_chat)
       print "Your secret message has been saved!"
+  #read message function ends
+      
+      
+ #read_chat_history function starts     
 def read_chat_history():
 
     read_for = select_friend()
@@ -132,15 +147,17 @@ def read_chat_history():
             print '[%s] %s: %s' % (chat.time.strftime("%d %B %Y"), 'You said:', chat.message)
         else:
             print '[%s] %s said: %s' % (chat.time.strftime("%d %B %Y"), friends[read_for].name, chat.message)
+# read_chat_history function starts
+            
 
 
-
+#start_chat function starts
 def start_chat(spy):
 
     current_status_message = None
 
     spy.name = spy.salutation + " " + spy.name
-
+#condtion check age valid or not
     if spy.age > 12 and spy.age < 50:
         print ("your age is valid!!")
         if spy.rating > 4.5:
@@ -158,7 +175,7 @@ def start_chat(spy):
         while show_menu:
             menu_choices = "What do you want to do? \n 1. Add a status update \n 2. Add a friend \n 3. Send a secret message \n 4. Read a secret message \n 5. Read Chats from a user \n 6. Close Application \n"
             menu_choice = raw_input(menu_choices)
-
+            #set menus
             if len(menu_choice) > 0:
                 menu_choice = int(menu_choice)
 
