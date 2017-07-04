@@ -13,6 +13,7 @@ class Spy:
 
 
 #forming the class chatMessage
+from termcolor import colored
 class ChatMessage:
 
     def __init__(self,message,sent_by_me):
