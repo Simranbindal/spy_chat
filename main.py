@@ -1,5 +1,5 @@
 #import another python file details
-from details import spy, Spy, ChatMessage, friends
+from spy_details import spy, Spy, ChatMessage, friends
 #import some of the libraries of the python which is used in project
 from steganography.steganography import Steganography
 from termcolor import cprint,colored
