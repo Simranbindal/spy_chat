@@ -11,7 +11,7 @@ words=['sos','SOS','save me','SAVE ME','fire','HELP','help']
 STATUS_MESSAGES = ['My name is Simran, Simran Bindal', 'dedictaed towards my work.', 'life is complicated']
 print colored("Hello! Let's started our spy_chat",'cyan')
 #ask for existing user
-question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (Y/N)? "
+question = "Do you want to continue as " + colored(spy.salutation,'magenta') + " " + colored(spy.name,'magenta') + " (Y/N)? "
 existing = raw_input(question)
 
 
@@ -80,7 +80,6 @@ def add_friend():
 def select_friend():
   item_number = 0
   for friend in friends:
-      #print '%d. %s %s aged %d with rating %.2f is online' % (item_number + 1, friend.salutation, friend.name,friend.age,friend.rating)
       print colored(friend.salutation,'magenta'),colored(friend.name,'magenta'),colored(friend.age,'magenta'),colored("aged",'magenta'),colored("with rating",'magenta'),colored(friend.age,'magenta')
       item_number = item_number + 1
 
