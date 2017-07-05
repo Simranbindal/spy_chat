@@ -9,7 +9,7 @@ from datetime import datetime
 words=['sos','SOS','save me','SAVE ME','fire','HELP','help']
 #list for present statuses
 STATUS_MESSAGES = ['My name is Simran, Simran Bindal', 'dedictaed towards my work.', 'life is complicated']
-print "Hello! Let's started our spy_chat"
+print colored("Hello! Let's started our spy_chat",'cyan')
 #ask for existing user
 question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (Y/N)? "
 existing = raw_input(question)
@@ -38,7 +38,7 @@ def add_status():
         for message in STATUS_MESSAGES:
             print '%d. %s' % (item_position, message)
             item_position = item_position + 1
-            message_selection = int(raw_input("\nChoose from the above messages "))
+        message_selection = int(raw_input("\nChoose from the above messages "))
 
         if len(STATUS_MESSAGES) >= message_selection:
             updated_status_message = STATUS_MESSAGES[message_selection - 1]
@@ -80,9 +80,8 @@ def add_friend():
 def select_friend():
   item_number = 0
   for friend in friends:
-      print '%d. %s %s aged %d with rating %.2f is online' % (item_number + 1, friend.salutation, friend.name,
-                                                              friend.age,
-                                                              friend.rating)
+      #print '%d. %s %s aged %d with rating %.2f is online' % (item_number + 1, friend.salutation, friend.name,friend.age,friend.rating)
+      print colored(friend.salutation,'magenta'),colored(friend.name,'magenta'),colored(friend.age,'magenta'),colored("aged",'magenta'),colored("with rating",'magenta'),colored(friend.age,'magenta')
       item_number = item_number + 1
 
   friend_choice = raw_input("Choose from your friends")
@@ -110,7 +109,7 @@ def send_message():
 
   new_chat = ChatMessage(text, True)
   friends[friend_choice].chats.append(new_chat)
-  print colored("Your secret message image is ready!", 'red')
+  print colored("Your secret message image is ready!", 'cyan')
   #send_message function ends
 
 
@@ -125,6 +124,10 @@ def read_message():
           print colored("No secret message is coded in the image!", 'red')
       else:
           temp = secret_text.split(' ')
+          if len(temp)>100:
+              del friends[sender]
+              print colored("friend deleted",'red')
+              return "pass"
           for i in words:
               if i in temp:
                   temp[temp.index(i)] = colored('Please Help me, i am in Danger', 'red')
@@ -133,7 +136,7 @@ def read_message():
       new_chat = ChatMessage(secret_text, False)
 
       friends[sender].chats.append(new_chat)
-      print colored("Your secret message has been saved!", 'red')
+      print colored("Your secret message has been saved!", 'cyan')
   #read message function ends
 
 
@@ -145,11 +148,11 @@ def read_chat_history():
     for chat in friends[read_for].chats:
         #extra objective:
         #set the color of time blue
-        a = colored(chat.time.strftime('%d %B %Y'), 'blue')
+        a = colored(chat.time.strftime('%A ,%d %B %Y %H:%M:%S'), 'blue')
         if chat.sent_by_me:
             print '[%s] %s: %s' % (a, 'You said:', chat.message)
         else:
-            print '[%s] %s said: %s' % (a, friends[read_for].name, chat.message)
+            print '[%s] %s read: %s' % (a, friends[read_for].name, chat.message)
 # read_chat_history function ends
 
 
@@ -174,8 +177,8 @@ def start_chat(spy):
         else:
             print "You are not eligible"
 
-        print "Authentication complete. Welcome " + spy.name + " age: " + str(spy.age) + " and rating of: " + str(
-            spy.rating) + " Proud to have you onboard"
+        print colored("Authentication complete. Welcome " + spy.name + " age: " + str(spy.age) + " and rating of: " + str(
+            spy.rating) + " Proud to have you onboard",'green')
         show_menu = True
 
         while show_menu:
@@ -196,7 +199,7 @@ def start_chat(spy):
                     send_message()
 
                 elif menu_choice == 4:
-                    read_message()
+                    temp = read_message()
 
                 elif menu_choice == 5:
                     read_chat_history()
@@ -207,8 +210,9 @@ def start_chat(spy):
             else:
                 print 'Sorry you are not of the correct age to be a spy'
 
-if existing == "Y":
+if existing.upper() == "Y":
     start_chat(spy)
+    print'continue'
 
 else:
     spy = Spy('', '', 0, 0.0)
